@@ -27,6 +27,7 @@ class DeveloperController extends Controller
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return back()->with('success', 'Database was refreshed using migrate:fresh.');
+
     }
 
     public function flushAndSeed()
