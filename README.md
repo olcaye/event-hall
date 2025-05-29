@@ -2,6 +2,8 @@
 
 This is a Laravel 12 application for managing events and bookings, built as part of a recruitment assignment. It includes event creation, booking management, attendee listings and more.
 
+- [LIVE DEMO HERE](https://eventhall.olcayergul.com)
+
 ---
 
 ## Setup Instructions (Using Laravel Sail - Docker)
