@@ -32,9 +32,9 @@
                 <div class="swiper-wrapper">
                     @foreach($event->gallery ?? [] as $image)
                         <div class="swiper-slide">
-                            <div class="event-bg" style="background-image: url({{ asset($image) }})"></div>
+                            <div class="event-bg" style="background-image: url({{ asset('storage/' . $image) }})"></div>
                             <div class="event-img">
-                                <img src="{{ asset($image) }}" alt="Event Image">
+                                  <img src="{{ asset('storage/' . $image) }}" alt="Event Image">
                             </div>
 
                         </div>
