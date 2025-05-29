@@ -55,14 +55,47 @@ Open in your browser:
 - http://localhost:8080
 
 ---
+### Developer Panel
 
-## Default Credentials (if applicable)
+This project includes a hidden developer panel to assist with testing and debugging.  
+It is only available when the environment is set to `developer`.
 
-```text
-Email: test@example.com
-Password: password
+http://localhost:8080/developer/panel
+
+Also can be accessable via navbar.
+
+#### Access
+
+Once the application is running with `APP_ENV=developer`, visit:
+
+#### Available Actions
+
+- **Refresh Migrations**  
+  Drops all tables and re-runs all migrations using `php artisan migrate:refresh`.
+
+- **Refresh Migrations & Seed**  
+  Same as above, but also re-runs all seeders using `php artisan migrate:refresh --seed`.
+
+- **Run Seeders**  
+  Executes the application's seeders manually with `php artisan db:seed`.
+
+- **Clear Sessions**  
+  Empties the session table using Laravel’s session driver.
+
+- **Clear Cache**  
+  Runs `php artisan optimize:clear` to clear config, route, view, and event caches.
+
+- **Login as User**  
+  Allows the developer to instantly authenticate as any seeded user.  
+  This will log out the current user and log in as the selected one.
+
+#### Security
+
+This panel is **only accessible** when the following condition is met in your `.env` file:
+
+```env
+APP_ENV=developer
 ```
-
 ---
 
 ## Google Maps Integration
