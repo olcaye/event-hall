@@ -34,7 +34,7 @@
                         <div class="swiper-slide">
                             <div class="event-bg" style="background-image: url({{ asset('storage/' . $image) }})"></div>
                             <div class="event-img">
-                                  <img src="{{ asset('storage/' . $image) }}" alt="Event Image">
+                                <img src="{{ asset('storage/' . $image) }}" alt="Event Image">
                             </div>
 
                         </div>
@@ -274,7 +274,7 @@
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script>
+    <script type="module">
         $(document).ready(function () {
             $('#bookEventBtn').on('click', function () {
                 Swal.fire({
@@ -338,12 +338,23 @@
             });
 
             var swiper = new Swiper(".mySwiper", {
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
                 pagination: {
                     el: ".swiper-pagination",
+                    clickable: true,
                 },
             });
         });
 
+    </script>
+
+    <script>
         function initMap() {
             const lat = parseFloat('{{ $event->latitude }}');
             const lng = parseFloat('{{ $event->longitude }}');

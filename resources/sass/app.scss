@@ -304,3 +304,19 @@ html, body {
     object-fit: cover;
     display: block;
 }
+
+.swiper-pagination-bullet {
+    background-color: white !important;
+    opacity: 0.4 !important;
+    width: 20px !important;
+    height: 4px !important;
+    border-radius: 4px !important;
+    transition: opacity 0.3s, transform 0.3s !important;
+}
+
+
+.swiper-pagination-bullet-active {
+    opacity: 1 !important;
+     width: 40px !important;
+    transform: scale(1.2) !important;
+}
