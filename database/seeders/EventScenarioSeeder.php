@@ -18,7 +18,6 @@ class EventScenarioSeeder extends Seeder
      */
     public function run(): void
     {
-        // Önceki verileri temizlemek
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Booking::truncate();
         Event::truncate();
@@ -26,11 +25,9 @@ class EventScenarioSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         $this->command->info('Veritabanı (User, Event, Booking) temizlendi.');
 
-        // 1. Kullanıcıları Oluştur
         $users = User::factory(50)->create();
         $this->command->info("50 adet kullanıcı oluşturuldu.");
 
-        // 2. Etkinlikleri Oluştur
         $locations = array_merge(
             array_fill(0, 50, 'Istanbul'),
             array_fill(0, 50, 'Izmir')
@@ -77,7 +74,6 @@ class EventScenarioSeeder extends Seeder
             ->create();
         $this->command->info("100 adet etkinlik oluşturuldu (50 Istanbul, 50 Izmir).");
 
-        // 10 tanesini 'Sona Erdi' yap
         $events->random(10)->each(function ($event) {
             $event->update([
                 'date'   => fake()->dateTimeBetween('-3 months', '-1 week'),
@@ -86,7 +82,6 @@ class EventScenarioSeeder extends Seeder
         });
         $this->command->info("10 adet etkinliğin durumu 'Sona Erdi' olarak güncellendi.");
 
-        // 3. Rezervasyonları Oluştur
         $activeEvents = Event::where('status', EventStatus::ACTIVE)->get();
         $bookingCount = 0;
 
