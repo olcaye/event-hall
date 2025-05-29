@@ -20,7 +20,7 @@ class DeveloperController extends Controller
 
     public function flush()
     {
-        Artisan::call('migrate:refresh', ['--force' => true]);
+        Artisan::call('migrate:fresh', ['--force' => true]);
 
         return back()->with('success', 'Database was refreshed using migrate:refresh.');
     }
