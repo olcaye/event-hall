@@ -62,4 +62,18 @@ class DeveloperController extends Controller
 
         return back()->with('success', 'Application cache cleared.');
     }
+
+    public function createStorageLink()
+    {
+        if (is_link(public_path('storage'))) {
+            return back()->with('success', 'The storage symlink already exists.');
+        }
+
+        try {
+            Artisan::call('storage:link');
+            return back()->with('success', 'Storage symlink created successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Failed to create symlink: ' . $e->getMessage());
+        }
+    }
 }

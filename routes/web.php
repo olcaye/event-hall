@@ -48,6 +48,6 @@ Route::middleware(OnlyDeveloperEnv::class)
         Route::post('/session-flush', [DeveloperController::class, 'clearSession'])->name('session.flush');
         Route::post('/login-as/{user}', [DeveloperController::class, 'loginAs'])->name('login_as');
         Route::post('/clear-cache', [DeveloperController::class, 'clearCache'])->name('clear_cache');
-
+        Route::post('/storage-link', [DeveloperController::class, 'createStorageLink'])->name('storage.link');
 
     });

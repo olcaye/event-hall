@@ -33,6 +33,14 @@
                 @csrf
                 <button class="btn btn-secondary">Clear Cache</button>
             </form>
+
+            <form method="POST" action="{{ route('developer.storage.link') }}">
+                @csrf
+                <button class="btn btn-info"
+                        @if (is_link(public_path('storage'))) disabled @endif>
+                    Create Storage Symlink
+                </button>
+            </form>
         </div>
 
         <table class="table table-bordered table-hover">
