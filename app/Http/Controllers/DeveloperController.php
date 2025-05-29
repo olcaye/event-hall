@@ -20,9 +20,13 @@ class DeveloperController extends Controller
 
     public function flush()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         Artisan::call('migrate:fresh', ['--force' => true]);
 
-        return back()->with('success', 'Database was refreshed using migrate:refresh.');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        return back()->with('success', 'Database was refreshed using migrate:fresh.');
     }
 
     public function flushAndSeed()
