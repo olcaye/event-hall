@@ -25,4 +25,4 @@ npm-debug.log
 Thumbs.db
 yarn-error.log
 !storage/app/public/events/**
-!storage/app/public/images/favicons/**
+!public/images/**
