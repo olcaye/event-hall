@@ -65,10 +65,6 @@ class DeveloperController extends Controller
 
     public function createStorageLink()
     {
-        if (is_link(public_path('storage'))) {
-            return back()->with('success', 'The storage symlink already exists.');
-        }
-
         try {
             Artisan::call('storage:link');
             return back()->with('success', 'Storage symlink created successfully.');
