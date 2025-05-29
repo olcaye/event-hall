@@ -15,8 +15,7 @@
                 <article class="event-card position-relative">
                     <a href="{{ route('events.show', $event) }}" class="event-card-link">
                         <div class="event-card-image">
-                            <img src="{{ $event->cover_image }}"
-                                 alt="{{ $event->title }}">
+                         <img src="{{ asset('storage/' . $event->cover_image) }}" alt="{{ $event->title }}">
                         </div>
                         <div @class([
                                     'event-card-content',
