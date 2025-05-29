@@ -12,7 +12,7 @@
         @endif
 
         @if($events->count())
-            <div class="table-responsive">
+            <div class="">
                 <table class="table table-bordered table-hover align-middle">
                     <thead class="table-light">
                     <tr>
@@ -29,30 +29,44 @@
                             <td>{{ $event->date->format('d M Y') }}</td>
                             <td>{{ $event->bookings_count }}</td>
                             <td>
-                                <button
-                                    class="btn btn-sm btn-info view-attendees-btn"
-                                    data-event-id="{{ $event->id }}"
-                                    data-event-title="{{ $event->title }}"
-                                    data-bs-toggle="offcanvas"
-                                    data-bs-target="#attendeesOffcanvas">
-                                    Attendees
-                                </button>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        Actions
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <button class="dropdown-item view-attendees-btn"
+                                                    data-event-id="{{ $event->id }}"
+                                                    data-event-title="{{ $event->title }}"
+                                                    data-bs-toggle="offcanvas"
+                                                    data-bs-target="#attendeesOffcanvas">
+                                                Attendees
+                                            </button>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{{ route('events.show', $event) }}">View</a>
+                                        </li>
 
-                                <a href="{{ route('events.show', $event) }}" class="btn btn-sm btn-primary">View</a>
-                                @can('update', $event)
-                                    <a href="{{ route('events.edit', $event) }}" class="btn btn-sm btn-warning">Edit</a>
-                                @endcan
-                                @can('delete', $event)
-                                    <form action="{{ route('events.destroy', $event) }}" method="POST" class="d-inline"
-                                          onsubmit="return confirm('Are you sure you want to delete this event?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"
-                                            {{ $event->bookings_count > 0 ? 'disabled' : '' }}>
-                                            Delete
-                                        </button>
-                                    </form>
-                                @endcan
+                                        @can('update', $event)
+                                            <li><a class="dropdown-item"
+                                                   href="{{ route('events.edit', $event) }}">Edit</a></li>
+                                        @endcan
+
+                                        @can('delete', $event)
+                                            <li>
+                                                <form action="{{ route('events.destroy', $event) }}" method="POST"
+                                                      onsubmit="return confirm('Are you sure you want to delete this event?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button
+                                                        class="dropdown-item text-danger" {{ $event->bookings_count > 0 ? 'disabled' : '' }}>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -78,39 +92,39 @@
 @endsection
 
 @push('scripts')
-<script type="module">
-    $(document).ready(function () {
-        $('.view-attendees-btn').on('click', function () {
-            let eventId = $(this).data('event-id');
-            let eventTitle = $(this).data('event-title');
+    <script type="module">
+        $(document).ready(function () {
+            $('.view-attendees-btn').on('click', function () {
+                let eventId = $(this).data('event-id');
+                let eventTitle = $(this).data('event-title');
 
-            $('#attendeesOffcanvasLabel').text('Attendees - ' + eventTitle);
-            $('#attendeesOffcanvasBody').html('<p class="text-muted">Loading...</p>');
+                $('#attendeesOffcanvasLabel').text('Attendees - ' + eventTitle);
+                $('#attendeesOffcanvasBody').html('<p class="text-muted">Loading...</p>');
 
-            $.ajax({
-                url: `/events/${eventId}/attendees`,
-                method: 'GET',
-                success: function (response) {
-                    if (response.length > 0) {
-                        let html = '<ul class="list-group">';
-                        response.forEach(function (attendee) {
-                            html += `
+                $.ajax({
+                    url: `/events/${eventId}/attendees`,
+                    method: 'GET',
+                    success: function (response) {
+                        if (response.length > 0) {
+                            let html = '<ul class="list-group">';
+                            response.forEach(function (attendee) {
+                                html += `
                                 <li class="list-group-item">
                                     <strong>${attendee.name}</strong><br>
                                     <small class="text-muted">${attendee.email}</small>
                                 </li>`;
-                        });
-                        html += '</ul>';
-                        $('#attendeesOffcanvasBody').html(html);
-                    } else {
-                        $('#attendeesOffcanvasBody').html('<p class="text-muted">No attendees yet.</p>');
+                            });
+                            html += '</ul>';
+                            $('#attendeesOffcanvasBody').html(html);
+                        } else {
+                            $('#attendeesOffcanvasBody').html('<p class="text-muted">No attendees yet.</p>');
+                        }
+                    },
+                    error: function () {
+                        $('#attendeesOffcanvasBody').html('<p class="text-danger">Failed to load attendees.</p>');
                     }
-                },
-                error: function () {
-                    $('#attendeesOffcanvasBody').html('<p class="text-danger">Failed to load attendees.</p>');
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
 @endpush

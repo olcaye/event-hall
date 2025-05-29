@@ -46,7 +46,7 @@
 
         <div class="container" id="event-details">
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-12 col-md-7">
 
                     <p class="event-date">
                         {{ $event->date->format('l, F d') }}
@@ -143,7 +143,7 @@
 
                 </div>
                 @if($event->isActive())
-                    <div class="col-md-5" id="booking-area">
+                    <div class="col-12 col-md-5" id="booking-area">
                         <div class="booking-wrapper">
                             @if(isset($daysLeft) && $daysLeft >= 0)
                                 <div @class([

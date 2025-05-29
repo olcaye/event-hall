@@ -90,7 +90,7 @@ class BookingController extends Controller
     public function myBookings()
     {
         $userId  = Auth::id();
-        $perPage = 10;
+        $perPage = 12;
 
         $activeBookings = Booking::with([
             'event' => function ($query) {

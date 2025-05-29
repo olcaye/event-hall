@@ -58,8 +58,8 @@
                     </li>
                 @endauth
                 @if(app()->environment('developer'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('developer.panel') }}" style="margin-left:10px;padding-left:15px;border-left: 1px solid gray; font-weight: 700">Developer</a>
+                    <li class="nav-item" id="developer-link">
+                        <a class="nav-link @if(auth()->check()) logged-in @endif" href="{{ route('developer.panel') }}">Developer</a>
                     </li>
                 @endif
             </ul>
