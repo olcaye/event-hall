@@ -57,6 +57,11 @@
                         <a class="nav-link" href="{{ route('my-bookings') }}">My Bookings</a>
                     </li>
                 @endauth
+                @if(app()->environment('developer'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('developer.panel') }}" style="margin-left:10px;padding-left:15px;border-left: 1px solid gray; font-weight: 700">Developer</a>
+                    </li>
+                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->
